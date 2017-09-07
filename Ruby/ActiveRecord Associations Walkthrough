@@ -27,3 +27,4 @@ end
 #### class Seed < ActiveRecord::Base
   belongs_to :orange
 end
+
