@@ -1,0 +1,29 @@
+
+#### orange_trees
+id 
+age 
+height
+created_at 
+updated_at
+
+#### oranges
+id 
+diameter 
+orange_tree_id 
+created_at 
+updated_at 
+
+
+#### class OrangeTree < ActiveRecord::Base
+  has_many :oranges
+  has_many :seeds, through: :oranges
+end
+
+#### class Orange < ActiveRecord::Base
+  belongs_to :orange_tree
+  has_many :seeds
+end
+
+#### class Seed < ActiveRecord::Base
+  belongs_to :orange
+end
