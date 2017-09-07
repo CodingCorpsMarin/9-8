@@ -1,30 +1,88 @@
 
-#### orange_trees
+
+orange_trees
 id 
 age 
 height
 created_at 
 updated_at
 
-#### oranges
+oranges
 id 
 diameter 
 orange_tree_id 
 created_at 
 updated_at 
 
-
-#### class OrangeTree < ActiveRecord::Base
+class OrangeTree < ActiveRecord::Base
   has_many :oranges
   has_many :seeds, through: :oranges
 end
-
-#### class Orange < ActiveRecord::Base
+class Orange < ActiveRecord::Base
   belongs_to :orange_tree
   has_many :seeds
 end
 
-#### class Seed < ActiveRecord::Base
+class Seed < ActiveRecord::Base
   belongs_to :orange
 end
 
+
+We’ll use schema designer https://dbdesigner.net/designer to map out our schema visually and then add a seeds table.
+
+For a more codebased example: let’s go to https://github.com/CodingCorpsMarin/active-record-intro-belongs-to-association-challenge
+
+Install, create, migrate, seed.
+Open console
+
+Look up the first rating. 
+rating = Rating.first
+What dog does [rating] belong to? 
+rating.dog 
+
+Look up a new dog
+jayda = Dog.find(2)
+Set [rating] to this new dog instead
+rating.dog = jayda
+rating.save 
+Check!
+rating.dog 
+
+Make a new dog for a new rating
+new_rating = Rating.new(coolness: 8, cuteness: 9, judge_id: 5)
+New rating means new dog
+new_rating.create_dog(name: "Toot", license: "OH-1234567", owner_id: 4)
+Now check
+new_rating
+new_rating.dog
+And Save
+new_rating.save
+
+We can edit and treat Dog as an attribute of Rating this way.
+New dog
+tenley = Dog.find_by(name: 'Tenley')
+New rating, set dog
+new_rating = Rating.new(judge_id: 2, dog: tenley, coolness: 8, cuteness: 10)
+Check
+new_rating.dog
+
+jayda = Dog.find_by(name: 'Jayda')
+new_rating.assign_attributes(judge_id: 1, dog: jayda)
+new_rating
+new_rating.dog
+
+Now let’s add that dog belongs to an owner and a rating belongs to the judge
+In your models dog.rb and rating.rb
+
+class Rating < ActiveRecord::Base
+	belongs_to :dog
+	belongs_to :judge, { class_name: “Person” }
+end 
+
+class Dog < ActiveRecord::Base
+	belongs_to :owner, { class_name: “Person }
+	has_many :ratings
+end
+
+Run spec tests
+Play around if you want
