@@ -1,0 +1,12 @@
+
+Competencies
+
+With SQL, we know to join tables on where ID = another table’s corresponding value
+This concept is called primary key - foreign key
+One to Many: OrangeTree has_many :oranges, Orange belongs_to :orange_tree  
+Has_many through happens if there is a relationship further down the line. If oranges had seeds, the tree would have many seeds through oranges
+
+Applications
+Understand how ActiveRecord handles associations
+Build our own schemas with these associations 
+
